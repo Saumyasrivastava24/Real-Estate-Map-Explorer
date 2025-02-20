@@ -1,20 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
 
 export default function ContactUs() {
-  // Simple handler to prevent default form submission
   function handleSubmit(e) {
     e.preventDefault();
-    // Here you can handle form data, e.g., send to an API
     console.log("Form submitted");
   }
 
   return (
     <main className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white p-6">
-      <div className="max-w-3xl mx-auto mt-16 p-8 border border-neutral-700 rounded-lg shadow-lg shadow-slate-200">
+      <div className="max-w-3xl mx-auto mt-16 p-8 border border-neutral-700 rounded-lg shadow-sm shadow-slate-200">
         <h1 className="text-4xl font-bold text-center mb-2">Contact Us</h1>
-        <div className="w-full h-1 bg-blue-600 mx-auto mb-6"></div>
+        <div className="w-full h-0.5 bg-blue-600 mx-auto mb-6"></div>
 
         <p className="text-neutral-200 text-lg leading-relaxed mb-6">
           We value your feedback and inquiries. If you have any questions or

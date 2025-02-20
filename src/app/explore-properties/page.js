@@ -49,10 +49,7 @@ export default function ExploreProperties() {
 
   return (
     <main className="p-6 max-w-full mx-auto bg-gradient-to-br from-gray-900 via-gray-800 to-black min-h-screen">
-      <h1 className="text-3xl font-bold text-center mb-6 text-gray-100">
-        Explore Properties
-      </h1>
-      <div className="flex justify-center mb-4">
+      <div className="flex justify-center mb-4 mt-20">
         <SearchLocation
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
