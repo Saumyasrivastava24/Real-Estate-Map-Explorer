@@ -2,30 +2,32 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+// If using NextAuth, you can import signIn:
+// import { signIn } from "next-auth/react";
 
 export default function Home() {
-  // Modal state
+  // Modal visibility & mode ("login" or "register")
   const [showModal, setShowModal] = useState(false);
-  const [modalMode, setModalMode] = useState("login"); // or "register"
+  const [modalMode, setModalMode] = useState("register");
 
-  // Form fields (you can add more if needed)
+  // Basic form fields
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // Open modal with the desired mode
+  // Open modal in a specific mode
   function openModal(mode) {
     setModalMode(mode);
     setShowModal(true);
   }
 
-  // Close modal
+  // Close modal & reset form fields
   function closeModal() {
     setShowModal(false);
     setEmail("");
     setPassword("");
   }
 
-  // Handle form submit (no real auth logic yet)
+  // Submit form (no real auth logic here)
   function handleSubmit(e) {
     e.preventDefault();
     if (modalMode === "login") {
@@ -33,9 +35,13 @@ export default function Home() {
     } else {
       console.log("Registering with:", { email, password });
     }
-    // Close modal or handle further logic
     closeModal();
   }
+
+  // If using NextAuth for Google sign-in:
+  // function handleGoogleSignIn() {
+  //   signIn("google");
+  // }
 
   return (
     <main className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
@@ -60,15 +66,7 @@ export default function Home() {
               Contact Us
             </Link>
           </li>
-          {/* Instead of separate pages, open modal */}
-          <li>
-            <button
-              onClick={() => openModal("login")}
-              className="hover:text-blue-400 transition"
-            >
-              Login
-            </button>
-          </li>
+          {/* Only a Register button in the navbar */}
           <li>
             <button
               onClick={() => openModal("register")}
@@ -107,7 +105,7 @@ export default function Home() {
         </p>
       </footer>
 
-      {/* Modal Overlay (Login/Register) */}
+      {/* Modal Overlay */}
       {showModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="relative bg-black/60 p-6 rounded-lg shadow-lg w-full max-w-md">
@@ -119,12 +117,37 @@ export default function Home() {
               &times;
             </button>
 
-            {/* Title */}
-            <h2 className="text-xl font-bold mb-4 text-center">
-              {modalMode === "login" ? "Login" : "Register"}
+            {/* Title: "Register" or "Login" */}
+            <h2 className="text-xl font-bold mb-4 text-center capitalize">
+              {modalMode}
             </h2>
 
-            {/* Form */}
+            {/* "Sign in with Google" Button */}
+            <button
+              type="button"
+              // onClick={handleGoogleSignIn} // If using NextAuth
+              onClick={() => alert("Google Sign In clicked! (Add NextAuth)")}
+              className="flex items-center justify-center gap-2 bg-gray-800 hover:bg-blue-700 px-4 py-2 rounded text-white font-semibold w-full mb-4"
+            >
+              <svg
+                className="w-5 h-5"
+                viewBox="0 0 488 512"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M488 261.8c0-17.8-1.4-35.2-4-52H249v98h135.9c-5.9 32.6-23.8 60.1-50.6 78.4l82.1 63.6c47.8-44 75.6-108.9 75.6-187zM249 492c66.4 0 122-22 162.6-59.6l-82.1-63.6c-22 15-50.1 23.8-80.5 23.8-61.9 0-114.3-41.8-133-98.1H73.2v61.6C111.8 453.5 175.4 492 249 492zM116 256c0-10.4 1.6-20.4 4.4-30H73.2v61h47.2c-2.8-9.6-4.4-19.6-4.4-31zM249 130.8c33.6 0 63.8 11.6 87.7 34.3l65.8-64C370.7 67.6 315.4 44 249 44 175.4 44 111.8 82.5 73.2 142.5l47.2 36.5c18.6-56.3 71-98.2 132.6-98.2z" />
+              </svg>
+              Sign in with Google
+            </button>
+
+            {/* Divider */}
+            <div className="flex items-center my-3">
+              <hr className="flex-grow border-gray-600" />
+              <span className="mx-2 text-gray-400">OR</span>
+              <hr className="flex-grow border-gray-600" />
+            </div>
+
+            {/* Register/Login Form */}
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div>
                 <label className="block mb-1 text-gray-300" htmlFor="email">
@@ -163,6 +186,29 @@ export default function Home() {
                 {modalMode === "login" ? "Login" : "Register"}
               </button>
             </form>
+
+            {/* Toggle Link: if in register mode, show "Already have an account?" */}
+            {modalMode === "register" ? (
+              <p className="text-center text-gray-300 mt-4">
+                Already have an account?{" "}
+                <button
+                  onClick={() => setModalMode("login")}
+                  className="text-blue-400 hover:underline"
+                >
+                  Login
+                </button>
+              </p>
+            ) : (
+              <p className="text-center text-gray-300 mt-4">
+                Don&apos;t have an account?{" "}
+                <button
+                  onClick={() => setModalMode("register")}
+                  className="text-blue-400 hover:underline"
+                >
+                  Register
+                </button>
+              </p>
+            )}
           </div>
         </div>
       )}
