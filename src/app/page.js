@@ -1,109 +1,171 @@
 "use client";
 
-import { useState } from "react";
-import PropertyCard from "./components/PropertyCard";
-import SearchLocation from "./components/SearchLocation";
+import React, { useState } from "react";
+import Link from "next/link";
 
 export default function Home() {
-  const [properties, setProperties] = useState([
-    {
-      id: 1,
-      name: "Modern Apartment",
-      address: "123 Main St, San Francisco, CA",
-      price: 5000000,
-      available: true,
-      image: "https://source.unsplash.com/400x300/?house,modern",
-      liked: false,
-    },
-    {
-      id: 2,
-      name: "Luxury Villa",
-      address: "456 Beach Rd, Miami, FL",
-      price: 12000000,
-      available: false,
-      image: "https://source.unsplash.com/400x300/?villa,luxury",
-      liked: false,
-    },
-  ]);
+  // Modal state
+  const [showModal, setShowModal] = useState(false);
+  const [modalMode, setModalMode] = useState("login"); // or "register"
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const [priceRange, setPriceRange] = useState(10000000);
-  const [statusFilter, setStatusFilter] = useState("all");
+  // Form fields (you can add more if needed)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const filteredProperties = properties.filter(
-    (property) =>
-      property.address.toLowerCase().includes(searchQuery.toLowerCase()) && // Filter by address
-      property.price <= priceRange &&
-      (statusFilter === "all" ||
-        (statusFilter === "available" && property.available) ||
-        (statusFilter === "sold" && !property.available))
-  );
+  // Open modal with the desired mode
+  function openModal(mode) {
+    setModalMode(mode);
+    setShowModal(true);
+  }
 
-  const toggleLike = (id) => {
-    setProperties((prevProperties) =>
-      prevProperties.map((property) =>
-        property.id === id ? { ...property, liked: !property.liked } : property
-      )
-    );
-  };
+  // Close modal
+  function closeModal() {
+    setShowModal(false);
+    setEmail("");
+    setPassword("");
+  }
+
+  // Handle form submit (no real auth logic yet)
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (modalMode === "login") {
+      console.log("Logging in with:", { email, password });
+    } else {
+      console.log("Registering with:", { email, password });
+    }
+    // Close modal or handle further logic
+    closeModal();
+  }
 
   return (
-    <main className="p-6 max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
-        Explore Properties
-      </h1>
-      <div className="flex flex-col md:flex-row md:justify-between mb-4 gap-4">
-        <SearchLocation
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
-      </div>
+    <main className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
+      {/* Navbar */}
+      <nav className="fixed top-0 left-0 w-full backdrop-blur-sm shadow-lg px-6 py-4 flex justify-center items-center z-50">
+        <h1 className="text-4xl font-bold text-white hover:text-blue-400">
+          Real Estate
+        </h1>
+        <ul className="flex gap-6 text-lg absolute right-6">
+          <li>
+            <Link href="/" className="hover:text-blue-400 transition">
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link href="/aboutUs" className="hover:text-blue-400 transition">
+              About Us
+            </Link>
+          </li>
+          <li>
+            <Link href="/contactUs" className="hover:text-blue-400 transition">
+              Contact Us
+            </Link>
+          </li>
+          {/* Instead of separate pages, open modal */}
+          <li>
+            <button
+              onClick={() => openModal("login")}
+              className="hover:text-blue-400 transition"
+            >
+              Login
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => openModal("register")}
+              className="hover:text-blue-400 transition"
+            >
+              Register
+            </button>
+          </li>
+        </ul>
+      </nav>
 
-     
-        {/* Left: Map Section */}
-        <div className="relative w-full h-[500px] bg-gray-200 flex  items-center justify-center rounded-lg shadow-lg">
-          <p className="text-gray-600">Google Map will be displayed here</p>
+      {/* Hero Section */}
+      <section className="flex items-center justify-center flex-col text-center min-h-screen px-6">
+        <h2 className="bg-clip-text text-transparent bg-gradient-to-b from-neutral-900 to-neutral-300 dark:from-neutral-500 dark:to-white text-3xl md:text-6xl font-bold tracking-tight">
+          Real Estate Property Listings
+        </h2>
+        <p className="max-w-2xl text-lg md:text-xl text-neutral-200 mt-4">
+          Discover available and sold properties directly on an interactive map
+          powered by the Google Maps API.
+        </p>
+
+        {/* Explore Properties Button */}
+        <Link
+          href="/exploreProperties"
+          className="mt-6 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-lg font-semibold transition"
+        >
+          Explore Properties
+        </Link>
+      </section>
+
+      {/* Footer */}
+      <footer className="text-center py-3 mt-10">
+        <p className="text-neutral-400">
+          &copy; {new Date().getFullYear()} Real Estate Listings. All rights
+          reserved.
+        </p>
+      </footer>
+
+      {/* Modal Overlay (Login/Register) */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="relative bg-black/60 p-6 rounded-lg shadow-lg w-full max-w-md">
+            {/* Close Button */}
+            <button
+              onClick={closeModal}
+              className="absolute top-4 right-4 text-gray-300 hover:text-white"
+            >
+              &times;
+            </button>
+
+            {/* Title */}
+            <h2 className="text-xl font-bold mb-4 text-center">
+              {modalMode === "login" ? "Login" : "Register"}
+            </h2>
+
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <div>
+                <label className="block mb-1 text-gray-300" htmlFor="email">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  className="w-full px-3 py-2 bg-gray-800 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter your email..."
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block mb-1 text-gray-300" htmlFor="password">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  className="w-full px-3 py-2 bg-gray-800 text-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter your password..."
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-white font-semibold w-full mt-2"
+              >
+                {modalMode === "login" ? "Login" : "Register"}
+              </button>
+            </form>
+          </div>
         </div>
-        <div>
-          <label className="mr-2">Status:</label>
-          <select
-            className="border rounded px-2 py-1"
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-          >
-            <option value="all">All</option>
-            <option value="available">Available</option>
-            <option value="sold">Sold</option>
-          </select>
-        </div>
-        <div>
-          <label className="mr-2">
-            Max Price: ₹{priceRange.toLocaleString()}
-          </label>
-          <input
-            type="range"
-            min="100000"
-            max="50000000"
-            value={priceRange}
-            onChange={(e) => setPriceRange(Number(e.target.value))}
-            className="w-40"
-          />
-        </div>
-        {/* Right: Property Listings */}
-        <div className="grid gap-4 w-full">
-          {filteredProperties.length > 0 ? (
-            filteredProperties.map((property) => (
-              <PropertyCard
-                key={property.id}
-                property={property}
-                onToggleLike={() => toggleLike(property.id)}
-              />
-            ))
-          ) : (
-            <p className="text-gray-500">No properties found.</p>
-          )}
-        </div>
-      
+      )}
     </main>
   );
 }
