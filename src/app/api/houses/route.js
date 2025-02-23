@@ -20,7 +20,7 @@ export async function GET() {
 export async function POST(request) {
   try {
     await dbConnect();
-    const body = await request.json(); // parse JSON body
+    const body = await request.json();
     const newHouse = await House.create(body);
     return NextResponse.json(
       { success: true, data: newHouse },

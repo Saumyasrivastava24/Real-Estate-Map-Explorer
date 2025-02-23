@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import House from "@/models/House";
 
+
 // GET a single house
 export async function GET(request, { params }) {
   try {

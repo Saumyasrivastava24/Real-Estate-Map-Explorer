@@ -2,7 +2,7 @@
 
 import bcrypt from 'bcryptjs';
 import dbConnect from '@/lib/dbConnect';
-import User from '@/models/User';
+import User from '@/app/models/User';
 
 export async function registerUser(formData) {
     const { name, email, password, provider, googleId } = Object.fromEntries(formData);

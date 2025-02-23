@@ -7,11 +7,11 @@ import { GoogleIcon } from "./components/Icons";
 // import { signIn } from "next-auth/react";
 
 export default function Home() {
- 
+
   return (
     <main className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
       {/* Navbar */}
-     
+
 
       {/* Hero Section */}
       <section className="flex items-center justify-center flex-col text-center min-h-screen px-6">
@@ -24,12 +24,13 @@ export default function Home() {
         </p>
 
         {/* Explore Properties Button */}
-        <Link
-          href="/explore-properties"
+        <button
+          // href="/explore-properties"
           className="mt-6 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-lg font-semibold transition"
+          onClick={() => window.location.href = "/explore-properties"}
         >
           Explore Properties
-        </Link>
+        </button>
       </section>
 
       {/* Footer */}
@@ -41,7 +42,7 @@ export default function Home() {
       </footer>
 
       {/* Modal Overlay */}
-     
+
     </main>
   );
 }
