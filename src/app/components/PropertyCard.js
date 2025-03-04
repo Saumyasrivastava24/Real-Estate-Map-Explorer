@@ -3,12 +3,21 @@
 import React from "react";
 
 export default function PropertyCard({ property, onToggleLike }) {
+  const fallbackImage = "https://via.placeholder.com/400x300?text=No+Image";
+
+  // Ensure there is a valid image URL
+  const imageUrl =
+    property.images.length > 0 && property.images[0].startsWith("http")
+      ? property.images[0]
+      : fallbackImage;
+
   return (
     <div className="relative bg-gray-700 shadow-lg rounded-lg overflow-hidden">
       <img
-        src={property.image}
+        src={imageUrl}
         alt={property.name}
         className="w-full h-40 object-cover"
+        onError={(e) => (e.target.src = fallbackImage)}
       />
       <div className="p-4">
         <h2 className="font-bold text-xl text-gray-100">{property.name}</h2>
