@@ -33,10 +33,8 @@ export default function Navbar() {
     e.preventDefault();
     if (modalMode === "login") {
       console.log("Logging in with:", { email, password });
-      // signIn('credentials', { email, password, callbackUrl: '/' });
     } else {
       console.log("Registering with:", { email, password });
-      // Optionally call your /api/register route, then signIn if needed
     }
     closeModal();
   };
@@ -45,13 +43,9 @@ export default function Navbar() {
     await signOut({ callbackUrl: "/" });
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setDropdownOpen(false);
       }
     };
@@ -85,8 +79,14 @@ export default function Navbar() {
               Contact Us
             </Link>
           </li>
-
-
+          {/* Admin Tab for Dealers */}
+          {session?.user?.role === "dealer" && (
+            <li>
+              <Link href="/dealer" className="hover:text-blue-400 transition">
+                Admin
+              </Link>
+            </li>
+          )}
           <li className="relative" ref={dropdownRef}>
             {session ? (
               <button
@@ -118,9 +118,7 @@ export default function Navbar() {
 
             {/* Dropdown */}
             {dropdownOpen && session && (
-              <div
-                className="absolute right-0 mt-2 w-40 bg-gray-800 rounded-md shadow-lg overflow-hidden transition transform origin-top-right animate-fade-in"
-              >
+              <div className="absolute right-0 mt-2 w-40 bg-gray-800 rounded-md shadow-lg overflow-hidden transition transform origin-top-right animate-fade-in">
                 <Link
                   href="/profile"
                   onClick={() => setDropdownOpen(false)}

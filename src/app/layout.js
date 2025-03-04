@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Real Estate Map Explorer",
+  title: "GeoEstate",
   description: "Your own real estate platform to explore properties on a map",
 };
 
