@@ -61,7 +61,7 @@ export default function Navbar() {
           onClick={() => router.push("/")}
           className="text-3xl font-semibold text-white hover:text-blue-400 cursor-pointer"
         >
-          Real Estate
+          GeoEstate
         </h1>
         <ul className="flex gap-6 text-lg absolute right-6 text-white items-center">
           <li>
