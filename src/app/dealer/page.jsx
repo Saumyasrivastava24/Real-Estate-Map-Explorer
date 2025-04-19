@@ -331,6 +331,7 @@ export default function ManageHouses() {
                 <input
                   type="text"
                   value={newHouse.title}
+                  placeholder="Enter title"
                   onChange={(e) => setNewHouse({ ...newHouse, title: e.target.value })}
                   className="bg-gray-700 border border-gray-600 p-2 w-full text-white rounded"
                   required
@@ -391,6 +392,7 @@ export default function ManageHouses() {
                 <input
                   type="text"
                   value={newHouse.city}
+                  placeholder="Enter city"
                   onChange={(e) => setNewHouse({ ...newHouse, city: e.target.value })}
                   className="bg-gray-700 border border-gray-600 p-2 w-full text-white rounded"
                 />
@@ -399,6 +401,7 @@ export default function ManageHouses() {
                 <label className="block mb-1">State:</label>
                 <input
                   type="text"
+                  placeholder="Enter state"
                   value={newHouse.state}
                   onChange={(e) => setNewHouse({ ...newHouse, state: e.target.value })}
                   className="bg-gray-700 border border-gray-600 p-2 w-full text-white rounded"
@@ -418,6 +421,7 @@ export default function ManageHouses() {
                 <input
                   type="number"
                   value={newHouse.price}
+                  placeholder="Enter price"
                   onChange={(e) => setNewHouse({ ...newHouse, price: e.target.value })}
                   className="bg-gray-700 border border-gray-600 p-2 w-full text-white rounded"
                   required
@@ -428,6 +432,7 @@ export default function ManageHouses() {
                 <input
                   type="number"
                   value={newHouse.bedrooms}
+                  placeholder="Enter number of bedrooms"
                   onChange={(e) => setNewHouse({ ...newHouse, bedrooms: e.target.value })}
                   className="bg-gray-700 border border-gray-600 p-2 w-full text-white rounded"
                 />
@@ -437,6 +442,7 @@ export default function ManageHouses() {
                 <input
                   type="number"
                   value={newHouse.bathrooms}
+                  placeholder="Enter number of bathrooms"
                   onChange={(e) => setNewHouse({ ...newHouse, bathrooms: e.target.value })}
                   className="bg-gray-700 border border-gray-600 p-2 w-full text-white rounded"
                 />
@@ -445,6 +451,7 @@ export default function ManageHouses() {
                 <label className="block mb-1">Square Feet:</label>
                 <input
                   type="number"
+                  placeholder="Enter square feet"
                   value={newHouse.squareFeet}
                   onChange={(e) => setNewHouse({ ...newHouse, squareFeet: e.target.value })}
                   className="bg-gray-700 border border-gray-600 p-2 w-full text-white rounded"
@@ -455,6 +462,7 @@ export default function ManageHouses() {
                 <input
                   type="text"
                   value={newHouse.images}
+                  placeholder="Enter image URLs"
                   onChange={(e) => setNewHouse({ ...newHouse, images: e.target.value })}
                   className="bg-gray-700 border border-gray-600 p-2 w-full text-white rounded"
                 />
